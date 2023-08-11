@@ -1,18 +1,20 @@
 
 import './App.css';
-import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
+import { Link, Route, Routes} from "react-router-dom";
 import HomePage from "./components/Home.page";
 import RQSuperHeroesPage from "./components/RQSuperHeroes.page";
 import SuperHeroesPage from "./components/SuperHeroes.page";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App w-screen h-screen">
 
+        <div className="w-screen  bg-blue-400 flex justify-center items-center" >
+            <Link className="mr-2"  to="/">Home</Link>
+            <Link className="mr-2" to="/RQSuperHeroesPage">RQSuperHeroesPage</Link>
+            <Link className="mr-2" to="/SuperHeroesPage">SuperHeroesPage</Link>
+        </div>
 
-        <Link className=""  to="/">Home</Link>
-        <Link to="/RQSuperHeroesPage">RQSuperHeroesPage</Link>
-        <Link to="/SuperHeroesPage">SuperHeroesPage</Link>
 
         <Routes>
           <Route path="/"  element={<HomePage/>}/>
