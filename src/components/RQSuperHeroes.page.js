@@ -4,7 +4,7 @@ import axios from "axios";
 
 function RQSuperHeroesPage(props) {
 
- const {isLoading , data} =  useQuery('super-heroes',()=>{
+ const {isLoading , data , isError ,error} =  useQuery('super-heroes',()=>{
     return axios.get('http://localhost:4000/superheroes')
 })
 
@@ -14,6 +14,9 @@ function RQSuperHeroesPage(props) {
         return <h2>Loading . . .</h2>
     }
 
+    if(isError){
+        return <h2>{error.message}</h2>
+    }
 
 
     return (
