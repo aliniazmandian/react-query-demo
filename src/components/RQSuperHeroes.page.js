@@ -8,7 +8,12 @@ function RQSuperHeroesPage(props) {
     return axios.get('http://localhost:4000/superheroes')
 
 },
-     {'cacheTime':5000})
+     {'cacheTime':50000,
+         'staleTime':0,
+         'refetchOnMount':false,
+         'refetchOnWindowFocus' : false,
+         // 'refetchInterval' : 2000,
+     })
 
     console.log(isLoading, isFetching)
 
