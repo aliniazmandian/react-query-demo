@@ -1,17 +1,18 @@
 import {useQuery} from "react-query";
 import axios from "axios";
 import {useState} from "react";
+import {useRqSuperheroFetcher} from "../Hooks/useRqSuperheroFetcher";
 
 
 function RQSuperHeroesPage(props) {
 
-    const [refetchInterval,setRefetchIntertval] = useState(2000)
+    const [refetchInterval,setRefetchInterval] = useState(2000)
     const onSuccess = (data)=>{
         console.log(data)
         if (data.data.length >= 4) {
-            setRefetchIntertval(0)
+            setRefetchInterval(0)
         }else {
-            setRefetchIntertval(2000)
+            setRefetchInterval(2000)
         }
     }
 
@@ -19,18 +20,8 @@ function RQSuperHeroesPage(props) {
         console.log(error)
     }
 
-  const {isLoading , data , isError ,error, isFetching, refetch} =  useQuery('super-heroes',()=>{
-    return axios.get('http://localhost:4000/superheroes')
-},
-     {'cacheTime':50000,
-         'staleTime':0,
-         'refetchOnMount':false,
-         'refetchOnWindowFocus' : false,
-         'refetchInterval' : refetchInterval,
-         onSuccess,
-         onError
-     }
-     )
+  const {isLoading , data , isError ,error, isFetching, refetch} =
+      useRqSuperheroFetcher(refetchInterval ,onSuccess ,onError)
 
     console.log(isLoading, isFetching)
 
