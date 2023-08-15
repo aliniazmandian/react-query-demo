@@ -1,19 +1,36 @@
 import {useQuery} from "react-query";
 import axios from "axios";
+import {useState} from "react";
 
 
 function RQSuperHeroesPage(props) {
 
- const {isLoading , data , isError ,error, isFetching} =  useQuery('super-heroes',()=>{
-    return axios.get('http://localhost:4000/superheroes')
+    const [refetchInterval,setRefetchIntertval] = useState(2000)
+    const onSuccess = (data)=>{
+        console.log(data)
+        if (data.data.length >= 4) {
+            setRefetchIntertval(0)
+        }else {
+            setRefetchIntertval(2000)
+        }
+    }
 
+    const onError = (error) =>{
+        console.log(error)
+    }
+
+  const {isLoading , data , isError ,error, isFetching, refetch} =  useQuery('super-heroes',()=>{
+    return axios.get('http://localhost:4000/superheroes')
 },
      {'cacheTime':50000,
          'staleTime':0,
          'refetchOnMount':false,
          'refetchOnWindowFocus' : false,
-         // 'refetchInterval' : 2000,
-     })
+         'refetchInterval' : refetchInterval,
+         onSuccess,
+         onError
+     }
+     )
 
     console.log(isLoading, isFetching)
 
@@ -27,9 +44,10 @@ function RQSuperHeroesPage(props) {
 
 
     return (
-<div>
+<div className={"bg-gray-800 h-screen "} >
+      <button className={"border-amber-950 border-2 p-1"} onClick={refetch} >refetch</button>
     {data.data.map((hero)=>{
-        return  <div key={hero.id} >{hero.name}</div>
+        return  <div key={hero.id} >{hero.id}_{hero.name}</div>
     })}
 </div>
 
