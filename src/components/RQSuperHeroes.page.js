@@ -1,14 +1,15 @@
-import {useQuery} from "react-query";
-import axios from "axios";
+
 import {useState} from "react";
 import {useRqSuperheroFetcher} from "../Hooks/useRqSuperheroFetcher";
+import {Link} from "react-router-dom";
 
 
-function RQSuperHeroesPage(props) {
+
+function RQSuperHeroesPage() {
 
     const [refetchInterval,setRefetchInterval] = useState(2000)
     const onSuccess = (data)=>{
-        console.log(data)
+
         if (data.data.length >= 4) {
             setRefetchInterval(0)
         }else {
@@ -20,10 +21,10 @@ function RQSuperHeroesPage(props) {
         console.log(error)
     }
 
-  const {isLoading , data , isError ,error, isFetching, refetch} =
+  const {isLoading , data , isError ,error, refetch} =
       useRqSuperheroFetcher(refetchInterval ,onSuccess ,onError)
 
-    console.log(isLoading, isFetching)
+    // console.log(isLoading, isFetching)
 
     if (isLoading){
         return <h2>Loading . . .</h2>
@@ -35,10 +36,10 @@ function RQSuperHeroesPage(props) {
 
 
     return (
-<div className={"bg-gray-800 h-screen "} >
+<div className={"bg-gray-800 flex flex-col h-screen "} >
       <button className={"border-amber-950 border-2 p-1"} onClick={refetch} >refetch</button>
     {data.data.map((hero)=>{
-        return  <div key={hero.id} >{hero.id}_{hero.name}</div>
+        return  <Link className={'m-1.5'} to={`/RQSuperHeroes/${hero.id}`}> {hero.name} </Link>
     })}
 </div>
 

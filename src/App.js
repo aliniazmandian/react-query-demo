@@ -4,6 +4,7 @@ import { Link, Route, Routes} from "react-router-dom";
 import HomePage from "./components/Home.page";
 import RQSuperHeroesPage from "./components/RQSuperHeroes.page";
 import SuperHeroesPage from "./components/SuperHeroes.page";
+import RQSuperHeroPage from "./components/RQSuperHero";
 
 function App() {
   return (
@@ -17,9 +18,10 @@ function App() {
 
 
         <Routes>
-          <Route path="/"  element={<HomePage/>}/>
-          <Route path="/RQSuperHeroesPage"  element={<RQSuperHeroesPage/>}/>
-          <Route path="/SuperHeroesPage"  element={<SuperHeroesPage/>}/>
+            <Route path="/"  element={<HomePage/>}/>
+            <Route path="/RQSuperHeroesPage"  element={<RQSuperHeroesPage/>}/>
+            <Route path="/SuperHeroesPage"  element={<SuperHeroesPage/>}/>
+            <Route path="/RQSuperHeroes/:heroId"  element={<RQSuperHeroPage/>}/>
         </Routes>
 
     </div>
