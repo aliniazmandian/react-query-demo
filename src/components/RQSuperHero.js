@@ -6,7 +6,7 @@ import {useRqSuperHeroDetailFetcher} from "../Hooks/useRqsuperHeroDetailFetcher"
 function RQSuperHeroPage() {
 
    const {heroId} =  useParams()
-    const {isLoading ,data ,error ,isError } = useRqSuperHeroDetailFetcher(heroId)
+    const {isLoading ,data  } = useRqSuperHeroDetailFetcher(heroId)
 
    if  (isLoading) {
        return <div>Loading . . . </div>
