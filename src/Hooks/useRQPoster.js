@@ -1,4 +1,4 @@
-import {useMutation} from "react-query";
+import {useMutation, useQueryClient} from "react-query";
 import axios from "axios";
 
 const addSuperHero = (hero)=>{
@@ -6,6 +6,10 @@ const addSuperHero = (hero)=>{
 }
 
 export const useRQPoster = ()=>{
-
-    return useMutation(addSuperHero)
+    const queryClient = useQueryClient()
+    return useMutation(addSuperHero,{
+        onSuccess : ()=>{
+            queryClient.invalidateQueries('super-heroes')
+        }
+    })
 }
